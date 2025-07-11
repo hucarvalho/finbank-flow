@@ -1,0 +1,7 @@
+flask 
+flask-cors
+flask-sqlalchemy
+psycopg2-binary
+Flask-Migrate
+Flask-JWT-Extended 
+passlib[bcrypt]

@@ -1,0 +1,4 @@
+finbank-back/app/config.py
+finbank-back/migrations
+__pycache__/
+*.py[cod]
