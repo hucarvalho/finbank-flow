@@ -81,20 +81,5 @@ Construir uma aplicação fullstack simulada de uma fintech, com backend em Flas
 
 ---
 
-### ⏱️ CRONOGRAMA SUGERIDO
-| Etapa                                | Prazo (estimado)         |
-|--------------------------------------|---------------------------|
-| Planejamento e estrutura de pastas   | 1 dia                    |
-| Backend (Flask + PostgreSQL + Docker)| 2 a 3 dias               |
-| Frontend (React + React Router)      | 2 dias                   |
-| Integração Front x Back              | 1 dia                    |
-| Registro de lead time e logs         | 1 dia                    |
-| Scripts Python: ETL + simulador      | 2 dias                   |
-| Dashboard principal no sistema web   | 1 dia                    |
-| Dashboards Metabase / BI             | 2 dias                   |
-| Documentação final + Deploy          | 1 dia                    |
 
----
-
-Se quiser, posso gerar em PDF ou converter para README.md pronto para GitHub.
 
