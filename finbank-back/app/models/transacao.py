@@ -7,7 +7,8 @@ class Transacao(db.Model):
     tipo = db.Column(db.String(20), nullable=False)  # 'deposito', 'saque', 'transferencia'
     valor = db.Column(db.Float, nullable=False)
     data_hora = db.Column(db.DateTime, server_default=db.func.now())
-    conta_id = db.Column(db.Integer, db.ForeignKey('contas.id'), nullable=False)
+    conta_remetente_id = db.Column(db.Integer, db.ForeignKey('contas.id'), nullable=False)
+    conta_destinatario_id = db.Column(db.Integer, db.ForeignKey('contas.id'), nullable=True)
 
     def __repr__(self):
         return f'<Transacao {self.id} tipo={self.tipo} valor={self.valor}>'
@@ -18,5 +19,9 @@ class Transacao(db.Model):
             'tipo': self.tipo,
             'valor': self.valor,
             'data_hora': self.data_hora.isoformat(),
-            'conta_id': self.conta_id
+            'conta_remetente_id': self.conta_remetente_id,
+            'conta_destinatario_id': self.conta_destinatario_id
         }
+    def save(self):
+        db.session.add(self)
+        db.session.commit()

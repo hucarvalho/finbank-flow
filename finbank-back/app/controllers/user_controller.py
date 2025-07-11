@@ -8,9 +8,10 @@ from flask_jwt_extended import create_access_token
 def login(email, password):
     try:
         user = User.query.filter_by(email=email).first()
+        print(user)
         if user:
             if user.check_password(password):
-                access_token = create_access_token(identity=user.id)
+                access_token = create_access_token(identity=str(user.id))
                 return {
                     "access_token": access_token,
                     "user": user.to_dict()
