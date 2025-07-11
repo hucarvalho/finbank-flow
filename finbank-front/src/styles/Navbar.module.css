@@ -1,0 +1,56 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #FFA500;
+  padding: 10px 20px;
+  flex-wrap: wrap;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: white;
+}
+
+.toggle {
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  color: white;
+  display: none;
+  cursor: pointer;
+}
+
+.links {
+  display: flex;
+  gap: 15px;
+}
+
+.links a {
+  text-decoration: none;
+  color: white;
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .toggle {
+    display: block;
+  }
+
+  .links {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .links.show {
+    display: flex;
+  }
+
+  .links a {
+    padding: 10px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+  }
+}
