@@ -19,9 +19,11 @@ def create_app():
     db.init_app(app)
     migrate.init_app(app, db)
     jwt.init_app(app)
-    from .routes import saldo_routes, auth_routes
+    from .routes import saldo_routes, auth_routes, conta_routes, transacao_routes
     app.register_blueprint(saldo_routes.bp)
     app.register_blueprint(auth_routes.auth_bp)
+    app.register_blueprint(conta_routes.conta_bp)
+    app.register_blueprint(transacao_routes.transacao_bp)
 
 
     from app.models import user, conta, transacao, emprestimo, parcela, log

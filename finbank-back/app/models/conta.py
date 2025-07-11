@@ -29,3 +29,6 @@ class Conta(db.Model):
             'chave_pix': self.chave_pix,
             'user_id': self.user_id
         }
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
