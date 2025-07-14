@@ -11,6 +11,10 @@ class User(db.Model):
     cpf = db.Column(db.String(11), unique=True, nullable=False)
     dt_nascimento = db.Column(db.Date, nullable=False)
     telefone = db.Column(db.String(15), nullable=True)
+    renda = db.Column(db.Float, default=0.0)
+
+    #relação com a conta 
+    contas = db.relationship('Conta', backref='user', lazy=True)
     
 
     def __repr__(self):
@@ -20,7 +24,23 @@ class User(db.Model):
         return {
             'id': self.id,
             'username': self.username,
-            'email': self.email
+            'email': self.email,
+            'cpf': self.cpf,
+            'dt_nascimento': self.dt_nascimento, 
+            'telefone': self.telefone,
+            'renda': self.renda
+        }
+    
+    def to_dict_with_contas(self):
+        return {
+            'id': self.id,
+            'username': self.username,
+            'email': self.email,
+            'cpf': self.cpf,
+            'dt_nascimento': self.dt_nascimento, 
+            'telefone': self.telefone,
+            'renda': self.renda,
+            'contas': [conta.to_dict() for conta in self.contas]
         }
     
     def set_password(self, password):

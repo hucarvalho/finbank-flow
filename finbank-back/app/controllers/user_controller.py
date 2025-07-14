@@ -4,6 +4,14 @@ from flask_jwt_extended import create_access_token
 
 
 
+def get_user_with_contas_by_cpf(cpf):
+    try:
+        user = User.query.filter_by(cpf=cpf).first()
+        if user:
+            return user.to_dict_with_contas()
+        return None
+    except Exception as e:
+        raise Exception(f"Erro ao buscar usuário: {str(e)}")
 
 def login(email, password):
     try:
