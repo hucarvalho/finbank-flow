@@ -9,18 +9,9 @@ transacao_bp = Blueprint('transacao', __name__, url_prefix='/api/transacao')
 
 
 
+
+
 # Criar uma transação (deposito)
-
-
-@transacao_bp.route('/teste', methods=['GET'])
-def teste_trazer_user_com_contas():
-    try:
-        user = user_controller.get_user_with_contas_by_cpf("24006282893")
-        if user:
-            return jsonify(user), 200
-        return jsonify({"error": "Usuário não encontrado"}), 404
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
 
 @transacao_bp.route('/deposito', methods=['POST'])
 @jwt_required()

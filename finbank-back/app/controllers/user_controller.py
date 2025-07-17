@@ -4,6 +4,8 @@ from flask_jwt_extended import create_access_token
 
 
 
+
+
 def get_user_with_contas_by_cpf(cpf):
     try:
         user = User.query.filter_by(cpf=cpf).first()

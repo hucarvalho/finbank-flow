@@ -8,6 +8,10 @@ class Emprestimo(db.Model):
     taxa_juros = db.Column(db.Float, nullable=False)
     parcelas = db.Column(db.Integer, nullable=False)
     data_contrato = db.Column(db.DateTime, server_default=db.func.now())
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    user = db.relationship('User', backref='emprestimos', lazy=True)
+
+    
 
     def __repr__(self):
         return f'<Emprestimo {self.id} valor={self.valor}>'
@@ -18,5 +22,10 @@ class Emprestimo(db.Model):
             'valor': self.valor,
             'taxa_juros': self.taxa_juros,
             'parcelas': self.parcelas,
-            'data_contrato': self.data_contrato.isoformat()
+            'data_contrato': self.data_contrato.isoformat(),
+            
         }
+    
+    def save(self):
+        db.session.add(self)
+        db.session.commit()

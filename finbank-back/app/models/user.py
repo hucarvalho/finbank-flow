@@ -15,6 +15,7 @@ class User(db.Model):
 
     #relação com a conta 
     contas = db.relationship('Conta', backref='user', lazy=True)
+    # emprestimos = db.relationship('Emprestimo', backref='user', lazy=True)
     
 
     def __repr__(self):
