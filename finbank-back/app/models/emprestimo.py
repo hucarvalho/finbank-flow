@@ -7,6 +7,8 @@ class Emprestimo(db.Model):
     valor = db.Column(db.Float, nullable=False)
     taxa_juros = db.Column(db.Float, nullable=False)
     parcelas = db.Column(db.Integer, nullable=False)
+    valor_inicial = db.Column(db.Float, nullable=False)  
+    valor_entregue = db.Column(db.Float, nullable=False)
     data_contrato = db.Column(db.DateTime, server_default=db.func.now())
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     user = db.relationship('User', backref='emprestimos', lazy=True)

@@ -6,6 +6,7 @@ class Parcela(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     valor = db.Column(db.Float, nullable=False)
+    valor_inicial = db.Column(db.Float, nullable=False)  
     data_vencimento = db.Column(db.DateTime, nullable=False)
     taxa_juros = db.Column(db.Float, nullable=False)
     status = db.Column(db.String(20), nullable=False, default='pendente')  # 'pendente', 'paga', 'atrasada'
@@ -25,4 +26,8 @@ class Parcela(db.Model):
             'emprestimo_id': self.emprestimo_id,
             'data_pagamento': self.data_pagamento.isoformat() if self.data_pagamento else None
         }
+
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
 
