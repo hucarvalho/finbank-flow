@@ -3,6 +3,19 @@ from app.models.parcela import Parcela
 from datetime import timedelta, datetime
 
 
+def pagar_parcela(emprestimo_id):
+    try:
+        parcela = calcular_parcela(emprestimo_id, None)
+        if not parcela:
+            raise Exception("Parcela não encontrada ou já paga")
+        
+        parcela.status = 'paga'
+        parcela.data_pagamento = datetime.now()
+        parcela.save()
+        return parcela
+    except Exception as e:
+        raise Exception(f"Erro ao pagar parcela: {str(e)}")
+
 def calcular_parcela(emprestimo_id, user):
     try:
         # Pegar primeira parcela não paga da data mais proxima
