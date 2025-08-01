@@ -1,9 +1,18 @@
-from flask import Flask 
+from flask import Flask, request, g 
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from . import config 
 from flask_migrate import Migrate
 from flask_jwt_extended import JWTManager
+
+
+import time 
+import logging
+
+
+
+
+
 
 
 jwt = JWTManager()
@@ -14,6 +23,12 @@ migrate = Migrate()
 
 def create_app():
     app = Flask(__name__)
+
+    logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    
+    logger = logging.getLogger('performance')
+    
+   
     CORS(app)
     app.config.from_object(config)
     db.init_app(app)
@@ -29,6 +44,34 @@ def create_app():
     app.register_blueprint(parcela_routes.parcela_bp)
     
     from app.models import user, conta, transacao, emprestimo, parcela, log
+    from app.models.log import Log
+
+    @app.before_request
+    def start_timer():
+        g.start = time.time()
+
+    @app.after_request
+    def log_request(response):
+        if hasattr(g, 'start'):
+            duration = time.time() - g.start
+            method = request.method
+            path = request.path
+            status = response.status
+
+
+            logger.info(f"{method} {path} - {status} - {duration:.2f}s")
+
+            try:
+                log = Log(
+                    method=method,
+                    path=path,
+                    duration=duration,
+                    status_code=status
+                )
+                log.save()
+            except Exception as e:
+                logger.error(f"Failed to log request: {e}")
+        return response
 
 
     return app
